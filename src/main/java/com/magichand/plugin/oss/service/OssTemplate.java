@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
+ *    Copyright (c) 2018-2025, wuph All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,7 +12,7 @@
  * Neither the name of the xiwang.com developer nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
+ * Author: wuph (1131960938@qq.com)
  */
 
 package com.magichand.plugin.oss.service;
@@ -36,12 +36,8 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * aws-s3 通用存储操作 支持所有兼容s3协议的云存储: {阿里云OSS，腾讯云COS，七牛云，京东云，minio 等}
- *
+ * 通用存储操作 支持所有兼容s3协议的云存储: {阿里云OSS，腾讯云COS，七牛云，京东云 等}
  * @author wuph
- * @author 858695266
- * @date 2020/5/23 6:36 上午
- * @since 1.0
  */
 @RequiredArgsConstructor
 public class OssTemplate implements InitializingBean {
@@ -63,10 +59,7 @@ public class OssTemplate implements InitializingBean {
 
 	/**
 	 * 获取全部bucket
-	 * <p>
-	 *
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListBuckets">AWS
-	 * API Documentation</a>
+	 * @return Bucket 对象列表
 	 */
 	@SneakyThrows
 	public List<Bucket> getAllBuckets() {
@@ -75,8 +68,7 @@ public class OssTemplate implements InitializingBean {
 
 	/**
 	 * @param bucketName bucket名称
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListBuckets">AWS
-	 * API Documentation</a>
+	 * @return bucket  对象
 	 */
 	@SneakyThrows
 	public Optional<Bucket> getBucket(String bucketName) {
@@ -85,9 +77,6 @@ public class OssTemplate implements InitializingBean {
 
 	/**
 	 * @param bucketName bucket名称
-	 * @see <a href=
-	 * "http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucket">AWS API
-	 * Documentation</a>
 	 */
 	@SneakyThrows
 	public void removeBucket(String bucketName) {
@@ -100,8 +89,6 @@ public class OssTemplate implements InitializingBean {
 	 * @param prefix 前缀
 	 * @param recursive 是否递归查询
 	 * @return S3ObjectSummary 列表
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListObjects">AWS
-	 * API Documentation</a>
 	 */
 	@SneakyThrows
 	public List<S3ObjectSummary> getAllObjectsByPrefix(String bucketName, String prefix, boolean recursive) {
@@ -113,9 +100,8 @@ public class OssTemplate implements InitializingBean {
 	 * 获取文件外链
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
-	 * @param expires 过期时间 <=7
-	 * @return url
-	 * @see AmazonS3#generatePresignedUrl(String bucketName, String key, Date expiration)
+	 * @param expires   过时
+	 * @return url 地址
 	 */
 	@SneakyThrows
 	public String getObjectURL(String bucketName, String objectName, Integer expires) {
@@ -132,8 +118,6 @@ public class OssTemplate implements InitializingBean {
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
 	 * @return 二进制流
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetObject">AWS
-	 * API Documentation</a>
 	 */
 	@SneakyThrows
 	public S3Object getObject(String bucketName, String objectName) {
@@ -145,7 +129,7 @@ public class OssTemplate implements InitializingBean {
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
 	 * @param stream 文件流
-	 * @throws Exception
+	 * @throws Exception 异常
 	 */
 	public void putObject(String bucketName, String objectName, InputStream stream) throws Exception {
 		putObject(bucketName, objectName, stream, (long) stream.available(), "application/octet-stream");
@@ -158,12 +142,10 @@ public class OssTemplate implements InitializingBean {
 	 * @param stream 文件流
 	 * @param size 大小
 	 * @param contextType 类型
-	 * @throws Exception
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutObject">AWS
-	 * API Documentation</a>
+	 *  @return  PutObjectResult 对象
 	 */
 	public PutObjectResult putObject(String bucketName, String objectName, InputStream stream, long size,
-			String contextType) throws Exception {
+			String contextType)  {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		objectMetadata.setContentLength(size);
 		objectMetadata.setContentType(contextType);
@@ -176,11 +158,9 @@ public class OssTemplate implements InitializingBean {
 	 * 获取文件信息
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
-	 * @throws Exception
-	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetObject">AWS
-	 * API Documentation</a>
+	 * @return  S3Object 对象
 	 */
-	public S3Object getObjectInfo(String bucketName, String objectName) throws Exception {
+	public S3Object getObjectInfo(String bucketName, String objectName) {
 		return amazonS3.getObject(bucketName, objectName);
 	}
 
@@ -188,17 +168,13 @@ public class OssTemplate implements InitializingBean {
 	 * 删除文件
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
-	 * @throws Exception
-	 * @see <a href=
-	 * "http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteObject">AWS API
-	 * Documentation</a>
 	 */
-	public void removeObject(String bucketName, String objectName) throws Exception {
+	public void removeObject(String bucketName, String objectName) {
 		amazonS3.deleteObject(bucketName, objectName);
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		ClientConfiguration clientConfiguration = new ClientConfiguration();
 		AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(
 				ossProperties.getEndpoint(), ossProperties.getRegion());

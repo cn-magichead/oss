@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
+ *    Copyright (c) 2018-2025, wuph All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,7 +12,7 @@
  * Neither the name of the xiwang.com developer nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
+ * Author: wuph (1131960938@qq.com)
  */
 
 package com.magichand.plugin.oss;
@@ -28,10 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * aws 自动配置类
- *
+ * 自动配置类
  * @author wuph
- * @author
  */
 @AllArgsConstructor
 @Configuration(proxyBeanMethods = false)

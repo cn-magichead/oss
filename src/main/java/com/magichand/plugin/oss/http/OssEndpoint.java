@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
+ *    Copyright (c) 2018-2025, wupH All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,7 +12,6 @@
  * Neither the name of the xiwang.com developer nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
  */
 
 package com.magichand.plugin.oss.http;
@@ -20,10 +19,10 @@ package com.magichand.plugin.oss.http;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.magichand.plugin.oss.annotation.AutoIgnore;
 import com.magichand.plugin.oss.service.OssTemplate;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import net.dreamlu.mica.auto.annotation.AutoIgnore;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,12 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * aws 对外提供服务端点
- *
- * @author lengleng
- * @author 858695266
- * <p>
- * oss.info
+ * 对外提供服务端点
  */
 @AutoIgnore
 @RestController
@@ -50,6 +44,8 @@ public class OssEndpoint {
 
 	/**
 	 * Bucket Endpoints
+	 * @param bucketName 名称
+	 * @return Bucket 对象
 	 */
 	@SneakyThrows
 	@PostMapping("/bucket/{bucketName}")
@@ -81,6 +77,8 @@ public class OssEndpoint {
 
 	/**
 	 * Object Endpoints
+	 * @param bucketName 名称
+	 * @return   S3Object 对象
 	 */
 	@SneakyThrows
 	@PostMapping("/object/{bucketName}")

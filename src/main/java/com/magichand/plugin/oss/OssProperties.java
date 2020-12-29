@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2018-2025, lengleng All rights reserved.
+ *    Copyright (c) 2018-2025, wuph All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,7 +12,6 @@
  * Neither the name of the xiwang.com developer nor the names of its
  * contributors may be used to endorse or promote products derived from
  * this software without specific prior written permission.
- * Author: lengleng (wangiegie@gmail.com)
  */
 
 package com.magichand.plugin.oss;
@@ -23,11 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * aws 配置信息
  *
- * @author lengleng
- * @author 858695266 配置文件添加： oss: enable: true endpoint: http://127.0.0.1:9000 #
- * pathStyleAccess 采用nginx反向代理或者AWS S3 配置成true，支持第三方云存储配置成false pathStyleAccess: false
- * access-key: lengleng secret-key: lengleng bucket-name: lengleng region: custom-domain:
- * https://oss.xxx.com/lengleng
+ * @author wuph
  * <p>
  * bucket 设置公共读权限
  */
@@ -75,6 +70,6 @@ public class OssProperties {
 	/**
 	 * 默认的存储桶名称
 	 */
-	private String bucketName = "payerp";
+	private String bucketName = "test";
 
 }
